@@ -1,0 +1,2 @@
+model/best_dynamic_pricing_model.pkl filter=lfs diff=lfs merge=lfs -text
+dataset/rideshare_kaggle.csv filter=lfs diff=lfs merge=lfs -text
