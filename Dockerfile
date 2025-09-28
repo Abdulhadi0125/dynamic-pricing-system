@@ -25,8 +25,8 @@ RUN mkdir -p /app/logs
 # Copy supervisord config
 COPY supervisord.conf /etc/supervisord.conf
 
-# Expose FastAPI (8000) and Streamlit (8501)
-EXPOSE 8000 8501
+# Expose only one port (Render will map $PORT automatically)
+EXPOSE 8501
 
 # Start both processes using supervisord
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
