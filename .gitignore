@@ -1,6 +1,8 @@
 *.pyc
 __pycache__/
 *.pkl
+# Edit .gitignore and add this line **before** *.pkl
+!model/best_dynamic_pricing_model.pkl
 .env
 *.log
 dataset/
