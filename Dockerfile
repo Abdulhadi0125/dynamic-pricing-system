@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y supervisor && rm -rf /var/lib/apt/lists
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app and model folders
+# Copy app and model
 COPY ./app /app
 COPY ./model /app/model
 
@@ -23,7 +23,7 @@ RUN mkdir -p /app/logs
 # Copy supervisord config
 COPY supervisord.conf /etc/supervisord.conf
 
-# Expose FastAPI (internal) and Streamlit (primary) ports
+# Expose internal FastAPI and external Streamlit
 EXPOSE 8000 8501
 
 # Start both FastAPI and Streamlit
