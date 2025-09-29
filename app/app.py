@@ -1,4 +1,5 @@
 # app.py
+import os
 import streamlit as st
 import plotly.express as px
 import requests
@@ -11,8 +12,10 @@ def main():
         initial_sidebar_state="expanded"
     )
 
-    # API URL (FastAPI backend)
-    API_URL = "http://127.0.0.1:8000/predict"
+    # API URL (FastAPI backend) via environment variable
+    API_HOST = os.getenv("API_HOST", "127.0.0.1")  # default internal host
+    API_PORT = os.getenv("API_PORT", "8000")       # default FastAPI port
+    API_URL = f"http://{API_HOST}:{API_PORT}/predict"
 
     # Sidebar Inputs
     st.sidebar.header("Trip Details")
@@ -48,6 +51,7 @@ def main():
         # Call API
         try:
             response = requests.post(API_URL, json=payload)
+            response.raise_for_status()
             result = response.json()
             best_price = result["suggested_optimal_price"]
             best_revenue = result["expected_revenue"]
