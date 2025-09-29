@@ -1,47 +1,72 @@
-🚖 DYNAMIC PRICING SYSTEM – UBER/LYFT
+🚖 Dynamic Pricing System for Uber/Lyft
 
-A Dynamic Pricing Dashboard that predicts optimal ride prices in real-time to maximize revenue using a Random Forest ML model. Built with Python, scikit-learn, and Streamlit for a fully interactive user experience.
+📌 Overview
 
-📌 Project Overview
+Ride-hailing companies like Uber and Lyft use dynamic pricing (also called surge pricing) to balance supply and demand. The goal is to:
 
-Dynamic pricing is a strategy where prices are adjusted in real-time based on demand, supply, and external factors.
-This project simulates a real-world use case for ride-hailing services like Uber and Lyft, predicting the optimal price to maximize revenue for each trip.
+Suggest the optimal fare for a trip.
+
+Maximize driver revenue while keeping the ride attractive for customers.
+
+This project implements a machine learning-powered pricing system that predicts demand and suggests the optimal ride price in real-time.
 
 Model download: [best_dynamic_pricing_model.pkl (58 MB)](https://drive.google.com/file/d/1Q0D5bjbtM5rW7OU6ZrFNymNR0urBSONU/view?usp=drive_link)
 
 Dataset (optional, 350 MB): [Uber & Lyft Dataset - Boston, MA](https://www.kaggle.com/datasets/brllrb/uber-and-lyft-dataset-boston-ma?resource=download)
 
-live link of my system: https://dynamic-pricing-system-fajq.onrender.com/
+Live demo: https://dynamic-pricing-system-fajq.onrender.com/
 
-🛠️ Features & Functionality
+🛠️ Tech Stack
 
-Inputs:
+Frontend → Streamlit
+ (interactive dashboard).
 
-Cab type (Uber / Lyft)
+Backend API → FastAPI : Python, scikit-learn, joblib
+ (model inference).
 
-Cab name (e.g., Black SUV, Lux Black XL, etc.)
+Libraries: pandas, numpy, matplotlib, plotly, joblib, lightgbm
 
-Hour of the day (0–23)
+Model → Trained Random Forest Regressor for demand prediction.
 
-Weekend flag (0/1)
+Deployment → Docker + Render
+.
 
-Surge multiplier (1.0–3.0)
+⚙️ Architecture
+flowchart TD
+    A[User: Enters trip details] --> B[Streamlit Frontend]
+    B -->|API Request JSON| C[FastAPI Backend]
+    C -->|Runs ML Model| D[Dynamic Pricing Model]
+    D -->|Optimal Price + Revenue| C
+    C -->|Response JSON| B
+    B --> E[Interactive Dashboard]
 
-Outputs:
+🚀 Features
 
-Suggested optimal price
+Enter trip details (cab type, name, time, surge multiplier, weekend).
 
-Expected revenue
+Predicts optimal fare and expected revenue.
 
-Interactive Price vs Revenue chart
+Interactive Price vs Revenue chart.
 
-Summary of input trip features
+Deployed online with public demo link.
 
-Bonus Features:
+📊 Dataset
 
-Transparent, modern dashboard design
+Source: Uber & Lyft rides dataset
 
-Interactive Plotly chart for better visualization
+Features used:
+
+cab_type
+
+name (cab category)
+
+hour
+
+is_weekend
+
+surge_multiplier
+
+price (target for optimization).
 
 📊 Model
 
@@ -59,84 +84,57 @@ R²: 0.984
 
 The model predicts demand at different price points, and the app calculates the price that maximizes revenue.
 
-🛠️ Tech Stack
 
-Backend & ML: Python, scikit-learn, joblib
-
-Frontend: Streamlit, Plotly
-
-Libraries: pandas, numpy, matplotlib, plotly, joblib, lightgbm
-
-🚀 How to Run Locally
-
-Clone the repository
-
-git clone https://github.com/Abdulhadi0125/dynamic-pricing-system.git
-cd dynamic-pricing-system
-
-
-Create and activate a virtual environment (recommended: Anaconda)
-
-conda create -n dynamic_pricing python=3.12
-conda activate dynamic_pricing
-
-
-Install dependencies
-
-pip install -r app/requirements.txt
-
-
-Run the Streamlit app
-
-streamlit run app/app.py
-
-
-Open the URL in your browser (usually http://localhost:8501
-).
-
-Optional: You can also run the app using Docker:
-
-docker build -t dynamic-pricing .
-docker run -p 8000:8000 -p 8501:8501 dynamic-pricing
-
-🖼️ Screenshots
+🖥️ Screenshots
 
 <img width="1919" height="849" alt="image" src="https://github.com/user-attachments/assets/9671d7f4-14f8-46d1-aff5-907d1c09c940" />
 
+Trip Inputs	Prediction & Chart
 
-Sidebar inputs for trip features
+	
+🏗️ Run Locally
+1️⃣ Clone the repo
+git clone https://github.com/<your-username>/dynamic-pricing-system.git
+cd dynamic-pricing-system
 
-Suggested optimal price & expected revenue
+2️⃣ Install dependencies
+pip install -r app/requirements.txt
 
-Interactive Plotly chart for price vs revenue
+3️⃣ Run FastAPI backend
+uvicorn app.api:app --host 0.0.0.0 --port 8000
 
-🔮 Future Improvements
+4️⃣ Run Streamlit frontend
+streamlit run app/app.py --server.port 8501
 
-Add weather and traffic features to improve demand prediction
 
-Implement Reinforcement Learning (RL) for advanced dynamic pricing
+Then visit → http://localhost:8501
 
-Add competitor price scraping for real-time e-commerce pricing
+🌍 Deployment (Render)
 
-Deploy on AWS / GCP / Render for public access
+Containerized with Docker.
 
-📂 Repository Structure
-dynamic-pricing-project/
-│
-├── app/
-│   ├── api.py          # FastAPI backend
-│   ├── app.py          # Streamlit frontend
-│   └── requirements.txt
-│
-├── model/
-│   └── best_dynamic_pricing_model.pkl
-│
-├── Dockerfile          # For containerization
-├── supervisord.conf    # For running API + Streamlit in one container
-├── README.md
-└── Rideshare dataset description.docx
+Supervisor runs both FastAPI (port 8000) and Streamlit (port 8501).
 
-✨ Author
+Hosted on Render:
+👉 Live App- https://dynamic-pricing-system-fajq.onrender.com/
 
-Abdul Hadi S.
-LinkedIn: linkedin.com/in/abdulhadi2004
+📌 Future Improvements
+
+Add weather and traffic data as features.
+
+Store predictions in a database for analytics.
+
+User authentication (driver vs admin dashboards).
+
+Docker Compose for better service management.
+
+👤 Author
+
+Abdul Hadi S
+
+🎓 Final Year ECE Student | Aspiring Data Analyst & ML Engineer
+
+🌐 LinkedIn
+ | GitHub
+
+⚡ If you found this project interesting, don’t forget to ⭐ star the repo!
